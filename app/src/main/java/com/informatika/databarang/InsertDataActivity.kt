@@ -94,7 +94,7 @@ class InsertDataActivity : AppCompatActivity() {
                     val dataBody = response.body()
                     val datacontent = dataBody!!.data
 
-                    val rvAdapter = ListContent(datacontent, this@InsertDataActivity)
+                    val rvAdapter = ListContent(datacontent, this@InsertDataActivity, "InsertDataActivity")
 
                     rv_data_barang.apply {
                         adapter = rvAdapter

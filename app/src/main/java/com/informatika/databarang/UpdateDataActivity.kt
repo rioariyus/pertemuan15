@@ -82,7 +82,7 @@ class UpdateDataActivity : AppCompatActivity() {
                     val dataBody = response.body()
                     val datacontent = dataBody!!.data
 
-                    val rvAdapter = ListContent(datacontent, this@UpdateDataActivity)
+                    val rvAdapter = ListContent(datacontent, this@UpdateDataActivity, "UpdateDataActivity")
 
 
                     rv_data_barang.apply {

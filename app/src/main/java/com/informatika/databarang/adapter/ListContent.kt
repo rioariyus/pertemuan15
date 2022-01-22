@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.informatika.databarang.InsertDataActivity
+import com.informatika.databarang.MainActivity
 import com.informatika.databarang.R
 import com.informatika.databarang.UpdateDataActivity
 import com.informatika.databarang.model.DataItem
@@ -20,7 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ListContent(val ldata : List<DataItem?>?, val context: Context) :
+class ListContent(val ldata : List<DataItem?>?, val context: Context, val kondisi : String) :
         RecyclerView.Adapter<ListContent.ViewHolder>() {
         class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
             val namaBarang = view.findViewById<TextView>(R.id.tv_nama_barang)
@@ -70,6 +72,17 @@ class ListContent(val ldata : List<DataItem?>?, val context: Context) :
                                 notifyItemRemoved(position)
                                 notifyItemChanged(position)
                                 notifyItemRangeChanged(position, ldata!!.size)
+
+                                if(kondisi == " InsertDataActivity"){
+                                    val activity = (context as InsertDataActivity)
+                                    activity.getData()
+                                }else if(kondisi == " UpdateDataActivity"){
+                                    val activity = (context as UpdateDataActivity)
+                                    activity.getData()
+                                }else{
+                                    val activity = (context as MainActivity)
+                                    activity.getData()
+                                }
                                 Log.d("bpesan", response.body().toString())
 
                             }

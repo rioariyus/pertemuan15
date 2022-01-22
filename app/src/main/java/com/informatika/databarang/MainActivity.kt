@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.informatika.databarang.adapter.ListContent
 import com.informatika.databarang.model.ResponseBarang
 import com.informatika.databarang.network.koneksi
+import com.informatika.databarang.service.SessionPreferences
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,9 +19,14 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var sessionPreferences: SessionPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sessionPreferences =    SessionPreferences(this)
+        cekSession()
+        tv_username.text = sessionPreferences.getUserName()
 //        setSupportActionBar(findViewById(R.id.toolbar))
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
@@ -29,6 +35,15 @@ class MainActivity : AppCompatActivity() {
         }
         getData()
 
+    }
+    fun cekSession(){
+        sessionPreferences = SessionPreferences(this)
+        val userName = sessionPreferences.getUserName()
+        if (userName == null){
+            val i = Intent(this, LoginActivity::class.java)
+            startActivity(i)
+            finish()
+        }
     }
     public fun getData() {
         koneksi.service.getBarang().enqueue(object : Callback<ResponseBarang> {
@@ -44,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     val dataBody = response.body()
                     val datacontent = dataBody!!.data
 
-                    val rvAdapter = ListContent(datacontent, this@MainActivity)
+                    val rvAdapter = ListContent(datacontent, this@MainActivity, "MainActivity")
                     rvAdapter.notifyDataSetChanged()
                     Log.d("bpesan", datacontent.toString())
                     rv_data_barang.apply {

@@ -1,6 +1,7 @@
 package com.informatika.databarang.network
 
 import com.informatika.databarang.model.ResponseActionBarang
+import com.informatika.databarang.model.ResponseAdmin
 import com.informatika.databarang.model.ResponseBarang
 import retrofit2.Call
 import retrofit2.http.Field
@@ -24,8 +25,8 @@ interface ApiService {
     @POST("update.php")
     fun updateBarang(
         @Field("id") id: String?,
-        namaBarang: String,
-        jmlBarang: String
+        @Field("Nama_barang") namaBarang: String?,
+        @Field("Jumlah_barang") jmlBarang: String?
     ): Call<ResponseActionBarang>
 
     @FormUrlEncoded
@@ -33,4 +34,18 @@ interface ApiService {
     fun deleteBarang(
         @Field("id") id: String?
     ): Call<ResponseActionBarang>
+
+    @FormUrlEncoded
+    @POST("login.php")
+    fun logIn(
+        @Field("Username") Username : String?,
+        @Field("Password") Password : String?
+    ):Call<ResponseAdmin>
+
+    @FormUrlEncoded
+    @POST("register.php")
+    fun register(
+        @Field("Username") Username : String?,
+        @Field("Password") Password : String?
+    ):Call<ResponseAdmin>
 }

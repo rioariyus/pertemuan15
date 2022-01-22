@@ -19,7 +19,7 @@ data class DataItem(
     @field:SerializedName("Nama_barang")
     val namaBarang: String? = null,
 
-    @field:SerializedName("Id")
+    @field:SerializedName("id")
     val id: String? = null,
 
     @field:SerializedName("Jumlah_barang")
